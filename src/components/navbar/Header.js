@@ -1,7 +1,8 @@
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 import { GlobalState } from "../../GlobalState";
-import { useContext } from "react";
+import {  useContext } from "react";
 import { Link } from "react-router-dom";
+ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Header = () => {
   const state = useContext(GlobalState);
@@ -9,6 +10,8 @@ const Header = () => {
   const [isLogged] = state.userApi.isLogged;
   const [isUser] = state.userApi.isUser;
 
+  
+    
   const logoutUser = async () => {
     localStorage.removeItem("token");
     window.location.href = "/";
@@ -57,43 +60,39 @@ const Header = () => {
   };
 
   return (
-   <>
-   <Navbar bg="dark" variant="dark" expand="lg">
-      {Webname()}
-      <Navbar.Toggle aria-controls="navbar-nav" />
-      <Navbar.Collapse id="navbar-nav">
-        <Nav className="mr-auto">
-          <Nav.Link href="/">Home</Nav.Link>
-          <Nav.Link href="/events">Trending Events</Nav.Link>
-          <Nav.Link href="/new_events">New Events</Nav.Link>
-          <Nav.Link href="/search_events">Search Events</Nav.Link>
-          <Nav.Link href="/contact">Contact</Nav.Link>
-          <NavDropdown title="Event Types" id="basic-nav-dropdown">
-              {categories?.map((category) => {
-                return (
-                  <NavDropdown.Item
-                    href={`/event_cat/${category._id}`}
-                    key={category._id}
-                  >
-                    {category.catName}
-                  </NavDropdown.Item>
-                );
-              })}
-            </NavDropdown>
 
-        </Nav>
-        <Nav className="ml-auto">
-        {isLogged ? loggedRouter() :   <Nav.Link href="/login">Login</Nav.Link> }
-          {UserLogin()}
+    <>
+    <nav className="navbar navbar-expand-md navbar-dark" style={{backgroundColor: "#595B83" }}>
+  <div className="container-fluid">
+    <a className="navbar-brand" href="/">
+      <img src="https://codingyaar.com/wp-content/uploads/logo-1.png" alt="logo" />
+    </a>
+    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span className="navbar-toggler-icon"></span>
+    </button>
+    <div className="collapse navbar-collapse" id="navbarNav">
+      <ul className="navbar-nav mx-auto">
+        <li className="nav-item">
+          <a className="nav-link active" aria-current="page" href="/">Home</a>
+        </li>
+        <li className="nav-item">
+          <a className="nav-link" href="/">Features</a>
+        </li>
+        <li className="nav-item">
+          <a className="nav-link" href="/">Pricing</a>
+        </li>
+        <li className="nav-item">
+          <a className="nav-link" href="/">Contact</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
 
-         
-         </Nav>
-      </Navbar.Collapse>
-    </Navbar>
-
-   
-   </>    
-        
+    
+    
+    
+    </>    
   );
 };
 
